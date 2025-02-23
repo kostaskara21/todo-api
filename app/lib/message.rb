@@ -31,4 +31,16 @@ class Message
     def self.expired_token
       'Sorry, your token has expired. Please login to continue.'
     end
+
+    #this is for the logout message for using a blacklisted token 
+    def self.blackalisted_token
+      'This token has been blacklisted and cannot be used.'
+    end
+
+    #this is for successfully logging out message
+    def self.log_out
+      'Logged out successfully'
+    end
+
+    
   end

@@ -6,6 +6,9 @@ module ExceptionHandler
   class MissingToken < StandardError; end
   class InvalidToken < StandardError; end
 
+  #We make this exception handler to handle the Blacklisting tokens for logout
+  class TokenBlacklisted < StandardError; end
+
   included do
     # Standard ActiveRecord error handling
     rescue_from ActiveRecord::RecordNotFound do |e|
@@ -20,7 +23,13 @@ module ExceptionHandler
     rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized_request
     rescue_from ExceptionHandler::MissingToken, with: :four_twenty_two
     rescue_from ExceptionHandler::InvalidToken, with: :four_twenty_two
+
+    
+    #rescue from our token exception and with the token blaclisted function we made
+    rescue_from ExceptionHandler::TokenBlacklisted, with: :token_blacklisted
+    
   end
+
 
   private
 
@@ -33,4 +42,15 @@ module ExceptionHandler
   def unauthorized_request(e)
     json_response({ message: e.message }, :unauthorized)
   end
+
+  '''
+  def token_blacklisted(exception)
+    render json: { error: exception.message }, status: :forbidden
+  end
+  '''
+
+  def token_blacklisted(e)
+    json_response({ message: e.message }, :forbidden)
+  end
+
 end

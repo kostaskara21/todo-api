@@ -1,4 +1,5 @@
 class JsonWebToken
+  
     # secret to encode and decode token
     HMAC_SECRET = Rails.application.secrets.secret_key_base
   
@@ -10,6 +11,13 @@ class JsonWebToken
     end
   
     def self.decode(token)
+
+      #used fo the logout
+      if REDIS.sismember("blacklisted_tokens", token)
+        #raise ExceptionHandler::TokenBlacklisted, 'This token has been blacklisted and cannot be used.'
+         raise  ExceptionHandler::TokenBlacklisted, Message.blackalisted_token
+      end
+
       # get payload; first index in decoded Array
       body = JWT.decode(token, HMAC_SECRET)[0]
       HashWithIndifferentAccess.new body

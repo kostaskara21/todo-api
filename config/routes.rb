@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
+  #this is for the logout 
+  get 'auth/logout', to: "authentication#logout"
 
   # root "posts#index"
 end
