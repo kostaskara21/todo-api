@@ -43,12 +43,7 @@ module ExceptionHandler
     json_response({ message: e.message }, :unauthorized)
   end
 
-  '''
-  def token_blacklisted(exception)
-    render json: { error: exception.message }, status: :forbidden
-  end
-  '''
-
+ 
   def token_blacklisted(e)
     json_response({ message: e.message }, :forbidden)
   end
