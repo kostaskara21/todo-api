@@ -44,6 +44,7 @@ This ensures that the token cannot be used again to make requests, even if it is
 ```
 The application should now be running on http://localhost:3000.
 
+# Endpoints
 
 ## Signup
 To sign up a new user, run the following command:
@@ -76,7 +77,6 @@ After logout, the token will be blacklisted in Redis and cannot be used again.
 
 ---
 
-# Endpoints
 
 ## Todos
 
